@@ -3,18 +3,14 @@ import os
 
 
 def load_config():
-    # Загружаем базовые .env
     load_dotenv(".env")
     load_dotenv(".env.credentials")
 
-    # Читаем context
     context = os.getenv("context", "local_emulator")
 
-    # Загружаем .env.<context>
     env_file = f".env.{context}"
     load_dotenv(env_file)
 
-    # DEBUG
     print("\n=== CONFIG DEBUG ===")
     print(f"Loaded context: {context}")
     print(f"Loaded env file: {env_file}")
@@ -31,13 +27,11 @@ def load_config():
         "deviceName": os.getenv("DEVICE_NAME"),
         "udid": os.getenv("UDID"),
 
-        # Универсальные параметры приложения
         "appPackage": os.getenv("APP_PACKAGE"),
         "appActivity": os.getenv("APP_ACTIVITY"),
 
         "timeout": float(os.getenv("TIMEOUT", "10")),
 
-        # Настройки BrowserStack
         "bstack": {
             "user": os.getenv("BSTACK_USER"),
             "key": os.getenv("BSTACK_KEY"),
