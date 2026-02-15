@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 
 import pytest
 import allure
@@ -8,6 +9,8 @@ from appium import webdriver
 from appium.options.android import UiAutomator2Options
 
 from config import load_config
+
+logger = logging.getLogger(__name__)
 
 
 @pytest.fixture(scope='function')
@@ -28,7 +31,7 @@ def mobile_management():
 
     yield driver
 
-    # --- Allure аттачи ---
+    # --- Allure attachments ---
     attach_screenshot()
     attach_page_source()
     attach_capabilities()
@@ -86,8 +89,8 @@ def attach_screenshot():
             name="screenshot",
             attachment_type=allure.attachment_type.PNG
         )
-    except:
-        pass
+    except Exception as e:
+        logger.warning(f"Failed to attach screenshot: {e}")
 
 
 def attach_page_source():
@@ -97,8 +100,8 @@ def attach_page_source():
             name="page_source",
             attachment_type=allure.attachment_type.XML
         )
-    except:
-        pass
+    except Exception as e:
+        logger.warning(f"Failed to attach page source: {e}")
 
 
 def attach_capabilities():
@@ -109,8 +112,8 @@ def attach_capabilities():
             name="capabilities",
             attachment_type=allure.attachment_type.JSON
         )
-    except:
-        pass
+    except Exception as e:
+        logger.warning(f"Failed to attach capabilities: {e}")
 
 
 def attach_video():
@@ -122,5 +125,5 @@ def attach_video():
             name="video",
             attachment_type=allure.attachment_type.URI_LIST
         )
-    except:
-        pass
+    except Exception as e:
+        logger.warning(f"Failed to attach video URL: {e}")
