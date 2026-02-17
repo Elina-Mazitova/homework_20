@@ -20,7 +20,6 @@ def test_onboarding_full(mobile_management):
         "…более, чем на 300 языках"
     ])
     driver.find_element(AppiumBy.ID, forward_btn).click()
--
     time.sleep(1)
     text2 = get_text(driver, package)
     assert any(x in text2 for x in [
